@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/reactTS/static/js/main.1452c501.chunk.js",
-    "main.js.map": "/reactTS/static/js/main.1452c501.chunk.js.map",
-    "runtime~main.js": "/reactTS/static/js/runtime~main.a69360c0.js",
-    "runtime~main.js.map": "/reactTS/static/js/runtime~main.a69360c0.js.map",
-    "static/js/2.29b1ecac.chunk.js": "/reactTS/static/js/2.29b1ecac.chunk.js",
-    "static/js/2.29b1ecac.chunk.js.map": "/reactTS/static/js/2.29b1ecac.chunk.js.map",
-    "index.html": "/reactTS/index.html",
-    "precache-manifest.4d00fa99dddee0473fe915a6be7f76bd.js": "/reactTS/precache-manifest.4d00fa99dddee0473fe915a6be7f76bd.js",
-    "service-worker.js": "/reactTS/service-worker.js"
+    "main.js": "/ReactTS/static/js/main.1452c501.chunk.js",
+    "main.js.map": "/ReactTS/static/js/main.1452c501.chunk.js.map",
+    "runtime~main.js": "/ReactTS/static/js/runtime~main.68897567.js",
+    "runtime~main.js.map": "/ReactTS/static/js/runtime~main.68897567.js.map",
+    "static/js/2.29b1ecac.chunk.js": "/ReactTS/static/js/2.29b1ecac.chunk.js",
+    "static/js/2.29b1ecac.chunk.js.map": "/ReactTS/static/js/2.29b1ecac.chunk.js.map",
+    "index.html": "/ReactTS/index.html",
+    "precache-manifest.da6e007dc997426fb58bc34b38c35088.js": "/ReactTS/precache-manifest.da6e007dc997426fb58bc34b38c35088.js",
+    "service-worker.js": "/ReactTS/service-worker.js"
   }
 }
