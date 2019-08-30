@@ -21,9 +21,9 @@ function Routes() {
 
 	return (
 		<div className={classes.content}>
-			<Route exact={true} path="/" component={HomePage} />
-			<Route exact={true} path="/home" component={HomePage} />
-			<Route exact={true} path="/todo" component={TodoPage} />
+			<Route exact={true} path="/ReactTS/" component={HomePage} />
+			<Route exact={true} path="/ReactTS/home" component={HomePage} />
+			<Route exact={true} path="/ReactTS/todo" component={TodoPage} />
 		</div>
 	);
 }
