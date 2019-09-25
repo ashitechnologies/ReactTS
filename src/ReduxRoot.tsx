@@ -5,11 +5,13 @@ import { PersistGate } from "redux-persist/integration/react";
 import App from "./App";
 import configureStore from "./configureStore";
 
+
 const { persistor, store } = configureStore();
 
 function ReduxRoot() {
+
 	return (
-		<Provider store={store}>
+		<Provider store={store} >
 			<PersistGate
 				loading={<Typography>Loading...</Typography>}
 				persistor={persistor}

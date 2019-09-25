@@ -10,26 +10,63 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Route, RouteComponentProps, Router } from "react-router-dom";
 import { history } from "./configureStore";
-import { Todo } from "./model/model";
+import { Todo, OneData, User } from "./model/model";
 import HomePage from "./pages/HomePage";
 import TodoPage from "./pages/TodoPage";
+
+import OneComponent from "./pages/One/OneComponent";
+import TwoComponent from "./pages/Two/TwoComponent";
+import StarredComponent from "./pages/Starred/Star";
+import UnStarredComponent from "./pages/Starred/UnStar";
+
 import { RootState } from "./reducers/index";
 import withRoot from "./withRoot";
+
+import Collapse from '@material-ui/core/Collapse';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
+
+import { createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+
+const theme = createMuiTheme({
+	palette: {
+		primary: purple,
+		secondary: {
+		  main: '#f44336',
+		},
+	},
+  });
+
+
 
 function Routes() {
 	const classes = useStyles();
 
 	return (
 		<div className={classes.content}>
-			<Route exact={true} path="/ReactTS/" component={HomePage} />
-			<Route exact={true} path="/ReactTS/home" component={HomePage} />
-			<Route exact={true} path="/ReactTS/todo" component={TodoPage} />
+			<Route exact={true} path="/" component={HomePage} />
+			<Route exact={true} path="/home" component={HomePage} />
+			<Route exact={true} path="/Home" component={HomePage} />
+			<Route exact={true} path="/todo" component={TodoPage} />
+			<Route exact={true} path="/one" component={OneComponent} />
+			<Route exact={true} path="/two" component={TwoComponent} />
+			<Route exact={true} path="/inbox/starred" component={StarredComponent} />
+			<Route exact={true} path="/inbox/unstarred" component={UnStarredComponent} />
+			
 		</div>
 	);
 }
 
-function Drawer(props: { todoList: Todo[] }) {
+function Drawer(props: { todoList: Todo[], oneDataList: OneData[] }) {
 	const classes = useStyles();
+	const [open, setOpen] = React.useState(false);
+  
+	const handleClick = () => {
+	  setOpen(!open);
+	};
 
 	return (
 		<div>
@@ -52,12 +89,48 @@ function Drawer(props: { todoList: Todo[] }) {
 					<ListItemText primary="Todo" />
 				</ListItem>
 			</List>
+			<Divider />
+			<List>
+				<ListItem button onClick={() => history.push("/one")}>
+					<ListItemIcon>
+						<OneIcon oneDataList={props.oneDataList} />
+					</ListItemIcon>
+					<ListItemText primary="One" />
+				</ListItem>
+			</List>
+			<Divider />
+			<List>
+				<ListItem button onClick={handleClick}>
+					<ListItemIcon>
+					<InboxIcon />
+					</ListItemIcon>
+					<ListItemText primary="Inbox" />
+					{open ? <ExpandLess /> : <ExpandMore />}
+				</ListItem>
+				<Collapse in={open} timeout="auto" unmountOnExit>
+					<List component="div" disablePadding>
+					<ListItem button className={classes.nestes} onClick={() => history.push("/inbox/starred")}>
+						<ListItemIcon>
+						<StarBorder />
+						</ListItemIcon>
+						<ListItemText primary="Starred" />
+					</ListItem>
+					<ListItem button className={classes.nestes} onClick={() => history.push("/inbox/unstarred")}>
+						<ListItemIcon>
+						<StarBorder />
+						</ListItemIcon>
+						<ListItemText primary="UnStarred" />
+					</ListItem>
+					</List>
+				</Collapse>
+			</List>
 		</div>
 	);
 }
 
 interface Props extends RouteComponentProps<void>, WithWidth {
 	todoList: Todo[];
+	oneDataList: OneData[];
 }
 
 function App(props?: Props) {
@@ -73,7 +146,7 @@ function App(props?: Props) {
 	};
 
 	return (
-		<Router history={history}>
+		<Router  history={history}  >
 			<div className={classes.root}>
 				<div className={classes.appFrame}>
 					<AppBar className={classes.appBar}>
@@ -91,8 +164,7 @@ function App(props?: Props) {
 								color="inherit"
 								noWrap={isWidthUp("sm", props.width)}
 							>
-								Create-React-App with Material-UI, Typescript,
-								Redux and Routing
+								ReactJS, Material-UI, Typescript, Redux and Routing
 							</Typography>
 						</Toolbar>
 					</AppBar>
@@ -109,7 +181,7 @@ function App(props?: Props) {
 								keepMounted: true, // Better open performance on mobile.
 							}}
 						>
-							<Drawer todoList={props.todoList} />
+							<Drawer todoList={props.todoList} oneDataList={props.oneDataList} />
 						</DrawerMui>
 					</Hidden>
 					<Hidden smDown>
@@ -120,7 +192,7 @@ function App(props?: Props) {
 								paper: classes.drawerPaper,
 							}}
 						>
-							<Drawer todoList={props.todoList} />
+							<Drawer todoList={props.todoList} oneDataList={props.oneDataList} />
 						</DrawerMui>
 					</Hidden>
 					<Routes />
@@ -144,6 +216,20 @@ function TodoIcon(props: { todoList: Todo[] }) {
 	}
 }
 
+function OneIcon(props: { oneDataList: OneData[] }) {
+	let oneDataList = props.oneDataList;
+
+	if (oneDataList != undefined && oneDataList.length > 0) {
+		return (
+			<Badge color="secondary" badgeContent={oneDataList.length}>
+				<FormatListNumberedIcon />
+			</Badge>
+		);
+	} else {
+		return <FormatListNumberedIcon />;
+	}
+}
+
 const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) => ({
 	root: {
@@ -151,16 +237,25 @@ const useStyles = makeStyles((theme: Theme) => ({
 		height: "100%",
 		zIndex: 1,
 		overflow: "hidden",
+		backgroundColor: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+		boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+	},
+	nestes: {
+		paddingLeft: theme.spacing(4),
 	},
 	appFrame: {
 		position: "relative",
 		display: "flex",
 		width: "100%",
 		height: "100%",
+		boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
 	},
 	appBar: {
 		zIndex: theme.zIndex.drawer + 1,
 		position: "absolute",
+		backgroundColor: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+		boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+		
 	},
 	navIconHide: {
 		[theme.breakpoints.up("md")]: {
@@ -192,6 +287,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 function mapStateToProps(state: RootState) {
 	return {
 		todoList: state.todoList,
+		oneDataList: state.oneDataList,
 	};
 }
 
