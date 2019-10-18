@@ -40,8 +40,8 @@ function OneComponent(props: Props) {
 		<div className={classes.toolbar} />
 		<Divider />
 		<List>
-			{['Home','Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-			<ListItem button key={text} onClick={() => history.push("/"+{text})}>
+			{['Home','Inbox', 'Starred', 'Send Email', 'Drafts'].map((text, index) => (
+			<ListItem button key={text} onClick={() => history.push("/one/"+text.replace(" ",""))}>
 				<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
 				<ListItemText primary={text} />
 			</ListItem>
@@ -49,7 +49,7 @@ function OneComponent(props: Props) {
 		</List>
 		<Divider />
 		<List>
-			{['All mail', 'Trash', 'Spam'].map((text, index) => (
+			{['All Mail', 'Trash', 'Spam'].map((text, index) => (
 			<ListItem button key={text}>
 				<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
 				<ListItemText primary={text} />
@@ -108,6 +108,8 @@ function OneComponent(props: Props) {
 			  {drawer}
 			</Drawer>
 		  </Hidden>
+		</nav>
+		<nav className={classes.drawer} aria-label="mailbox folders">
 		</nav>
 		<main className={classes.content}>
 		  <div className={classes.toolbar} />

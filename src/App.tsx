@@ -52,10 +52,19 @@ function Routes() {
 			<Route exact={true} path="/Home" component={HomePage} />
 			<Route exact={true} path="/todo" component={TodoPage} />
 			<Route exact={true} path="/one" component={OneComponent} />
+				<Route exact={true} path="/one/Home" component={HomePage} />
+				<Route exact={true} path="/one/Inbox" component={HomePage} />
+				<Route exact={true} path="/one/Starred" component={HomePage} />
+				<Route exact={true} path="/one/SendEmail" component={HomePage} />
+				<Route exact={true} path="/one/Drafts" component={HomePage} />
+				<Route exact={true} path="/one/AllMail" component={HomePage} />
+				<Route exact={true} path="/one/Trash" component={HomePage} />
+				<Route exact={true} path="/one/Spam" component={HomePage} />
 			<Route exact={true} path="/two" component={TwoComponent} />
 			<Route exact={true} path="/inbox/starred" component={StarredComponent} />
 			<Route exact={true} path="/inbox/unstarred" component={UnStarredComponent} />
-			
+			<Route exact={true} path="/Home" component={HomePage} />
+
 		</div>
 	);
 }
